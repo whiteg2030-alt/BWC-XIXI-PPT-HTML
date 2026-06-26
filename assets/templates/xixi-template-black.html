@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>细细风格 PPT 模板 Black</title>
+    <style>
+@font-face {
+  font-family: "BaiWuchangKeke";
+  src: url("../fonts/BaiWuchangKeke-Thin.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BaiWuchangKeke";
+  src: url("../fonts/BaiWuchangKeke-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BaiWuchangKeke";
+  src: url("../fonts/BaiWuchangKeke-Bold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #000000;
+  --ink: #f8f8f4;
+  --muted: rgba(248, 248, 244, 0.58);
+  --faint: rgba(248, 248, 244, 0.1);
+  --line: rgba(248, 248, 244, 0.14);
+  --grid: rgba(248, 248, 244, 0.07);
+  --panel: rgba(248, 248, 244, 0.035);
+  --lime: #b7ff00;
+  --slide-w: 1672;
+  --slide-h: 941;
+  --chrome-font: "BaiWuchangKeke", sans-serif;
+  --content-font: "BaiWuchangKeke", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  letter-spacing: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--chrome-font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+button {
+  font: inherit;
+}
+
+.deck {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.slide-shell {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 160ms ease;
+}
+
+.slide-shell.is-active {
+  z-index: 2;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--slide-w) * 1px);
+  height: calc(var(--slide-h) * 1px);
+  overflow: hidden;
+  transform-origin: top left;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    var(--paper);
+  background-size: 28px 28px;
+  border: 1px solid var(--line);
+}
+
+.slide-header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 250px 1fr 1fr auto auto;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  height: 82px;
+  padding: 0 52px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--chrome-font);
+  letter-spacing: 0.16em;
+}
+
+.brand {
+  display: grid;
+  gap: 5px;
+  line-height: 1;
+}
+
+.brand strong {
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.brand span,
+.meta,
+.topic {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(112px, 1fr));
+  gap: 32px;
+}
+
+.meta b {
+  display: block;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.topic {
+  justify-self: end;
+  max-width: 280px;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.year {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 0.86;
+}
+
+.page-chip {
+  display: inline-grid;
+  grid-template-columns: 58px auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 126px;
+  height: 36px;
+  padding: 0 13px 0 5px;
+  border-radius: 999px;
+  background: var(--lime);
+  box-shadow: 0 0 24px rgba(183, 255, 0, 0.34);
+}
+
+.page-arrow {
+  position: relative;
+  display: block;
+  width: 54px;
+  height: 28px;
+}
+
+.page-arrow::before,
+.page-arrow::after {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+.page-arrow::before {
+  left: 10px;
+  top: 13px;
+  width: 31px;
+  height: 2px;
+  background: #fff;
+}
+
+.page-arrow::after {
+  right: 9px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: rotate(45deg);
+}
+
+.page-number {
+  color: #000;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.content {
+  position: absolute;
+  inset: 118px 76px 94px;
+  z-index: 3;
+  font-family: var(--content-font);
+}
+
+.slide-footer {
+  position: absolute;
+  left: 52px;
+  right: 52px;
+  bottom: 28px;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 96px 1fr 260px;
+  align-items: center;
+  gap: 20px;
+  min-height: 28px;
+  color: var(--ink);
+  font-family: var(--chrome-font);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.slide-footer span:last-child {
+  color: var(--muted);
+  text-align: right;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.progress-dot {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  border: 2px solid var(--muted);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.progress-dot.is-filled {
+  border-color: var(--lime);
+  background: var(--lime);
+  box-shadow: 0 0 16px rgba(183, 255, 0, 0.56);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.kicker {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-family: var(--chrome-font);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.kicker::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 3px;
+  margin-top: 15px;
+  background: var(--lime);
+}
+
+h1 {
+  max-width: 820px;
+  font-size: 132px;
+  font-weight: 200;
+  line-height: 1.16;
+}
+
+.lead,
+.body-text,
+.list span,
+.note,
+.stat-sub {
+  color: var(--muted);
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  margin-top: 42px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: #000;
+  font-family: var(--chrome-font);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cover {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 74px;
+}
+
+.cover h1 {
+  font-size: 126px;
+}
+
+.cover .lead {
+  max-width: 650px;
+  margin-top: 30px;
+}
+
+.particle-field {
+  position: relative;
+  justify-self: center;
+  width: 620px;
+  height: 620px;
+}
+
+.particle-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 430px 1fr;
+  align-items: center;
+  gap: 86px;
+}
+
+.section-num {
+  display: grid;
+  place-items: center;
+  width: 360px;
+  height: 360px;
+  border-radius: 34px;
+  background: var(--lime);
+  color: #000;
+  font-family: var(--chrome-font);
+  font-size: 154px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+  max-width: 780px;
+  margin-top: 44px;
+}
+
+.list div {
+  display: grid;
+  grid-template-columns: 12px 54px 1fr;
+  align-items: center;
+  gap: 18px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--line);
+}
+
+.list i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.list b {
+  color: var(--lime);
+  font-family: var(--chrome-font);
+  font-size: 18px;
+}
+
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 440px;
+  align-items: center;
+  gap: 88px;
+}
+
+.story .body-text {
+  max-width: 740px;
+  margin-top: 30px;
+}
+
+.metric-card {
+  padding: 38px;
+  border: 1px solid rgba(183, 255, 0, 0.58);
+  border-radius: 22px;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    var(--panel);
+  background-size: 18px 18px;
+}
+
+.metric-card .num {
+  color: var(--lime);
+  font-family: var(--chrome-font);
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.metric-card h3 {
+  margin-top: 28px;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.metric-card hr {
+  height: 1px;
+  margin: 30px 0;
+  border: 0;
+  background: var(--line);
+}
+
+.closing {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: 72px;
+}
+
+.closing h1 {
+  font-size: 122px;
+}
+
+.closing-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.mini-card {
+  min-height: 256px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+}
+
+.mini-card b {
+  display: block;
+  color: var(--lime);
+  font-family: var(--chrome-font);
+  font-size: 18px;
+  letter-spacing: 0.12em;
+}
+
+.mini-card h3 {
+  margin-top: 36px;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.mini-card p {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.46;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 520ms ease var(--delay, 0ms),
+    transform 640ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms);
+}
+
+.slide-shell.is-active .reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-shell,
+  .reveal {
+    transition: none !important;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <main class="deck" aria-label="细细风格 PPT 模板">
+      <section class="slide-shell is-active" id="slide-01" data-layout="S01" data-code="COVER" aria-label="Cover">
+        <article class="slide">
+          <header class="slide-header"></header>
+          <div class="content cover">
+            <div>
+              <p class="kicker reveal" style="--delay: 80ms">XIXI / SMALL BEAUTY</p>
+              <h1 class="reveal" style="--delay: 180ms">细细风格<br>PPT 模板</h1>
+              <p class="lead reveal" style="--delay: 280ms">适合小而美的产品、作品集、研究札记和私享会表达。少一点装饰，多一点呼吸。</p>
+              <span class="tag reveal" style="--delay: 380ms">TEMPLATE / V8</span>
+            </div>
+            <div class="particle-field reveal" style="--delay: 220ms">
+              <canvas class="particle-canvas" aria-label="动态粒子圆环"></canvas>
+            </div>
+          </div>
+          <footer class="slide-footer"></footer>
+        </article>
+      </section>
+
+      <section class="slide-shell" id="slide-02" data-layout="S02" data-code="PRINCIPLE" aria-label="Principle">
+        <article class="slide">
+          <header class="slide-header"></header>
+          <div class="content section">
+            <div class="section-num reveal" style="--delay: 90ms">01</div>
+            <div>
+              <p class="kicker reveal" style="--delay: 150ms">SECTION / PRINCIPLE</p>
+              <h1 class="reveal" style="--delay: 230ms">越小<br>越要清楚</h1>
+              <p class="lead reveal" style="--delay: 310ms">细细风格不是弱，而是把声音压低，把信息留准。</p>
+              <div class="list reveal" style="--delay: 390ms">
+                <div><i></i><b>01</b><span>标题只讲一个判断，最多两行。</span></div>
+                <div><i></i><b>02</b><span>正文用短句，像讲给一个人听。</span></div>
+                <div><i></i><b>03</b><span>绿色只做锚点，不铺满画面。</span></div>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-footer"></footer>
+        </article>
+      </section>
+
+      <section class="slide-shell" id="slide-03" data-layout="S03" data-code="CONTENT" aria-label="Content">
+        <article class="slide">
+          <header class="slide-header"></header>
+          <div class="content story">
+            <div>
+              <p class="kicker reveal" style="--delay: 100ms">CHAPTER 01</p>
+              <h1 class="reveal" style="--delay: 190ms">轻声<br>但有力量</h1>
+              <p class="body-text reveal" style="--delay: 300ms">这一页适合放核心观点。左侧是演讲者要让听众记住的一句话，右侧用一个小数据或小结论托住它。</p>
+              <p class="body-text reveal" style="--delay: 390ms">白无常可可体负责中间区域的气质，页头页尾交给思源黑体，避免整体太飘。</p>
+            </div>
+            <aside class="metric-card reveal" style="--delay: 270ms">
+              <div class="num">72%</div>
+              <h3>留白比例</h3>
+              <hr>
+              <p class="note">示例数字，用来提醒页面不要被内容填满。</p>
+            </aside>
+          </div>
+          <footer class="slide-footer"></footer>
+        </article>
+      </section>
+
+      <section class="slide-shell" id="slide-04" data-layout="S04" data-code="CLOSING" aria-label="Closing">
+        <article class="slide">
+          <header class="slide-header"></header>
+          <div class="content closing">
+            <div>
+              <p class="kicker reveal" style="--delay: 90ms">CLOSING / METHOD</p>
+              <h1 class="reveal" style="--delay: 180ms">把复杂<br>留在幕后</h1>
+              <p class="lead reveal" style="--delay: 280ms">模板只保留必要组件，方便任何 agent 稳定复用。</p>
+            </div>
+            <div class="closing-panel">
+              <div class="mini-card reveal" style="--delay: 300ms">
+                <b>LAYOUT</b>
+                <h3>四种页面</h3>
+                <p>封面、原则、正文、收束，够小也够完整。</p>
+              </div>
+              <div class="mini-card reveal" style="--delay: 380ms">
+                <b>MOTION</b>
+                <h3>轻动效</h3>
+                <p>只让粒子和文字轻轻出现，不抢演讲内容。</p>
+              </div>
+              <div class="mini-card reveal" style="--delay: 460ms">
+                <b>RULE</b>
+                <h3>少即是稳</h3>
+                <p>固定字体、网格、颜色和页头页尾，减少跑偏。</p>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-footer"></footer>
+        </article>
+      </section>
+    </main>
+
+    <script>
+(function () {
+  const SLIDE_W = 1672;
+  const SLIDE_H = 941;
+  const slides = Array.from(document.querySelectorAll(".slide-shell"));
+  const meta = [
+    { topic: "COVER", code: "DESIGN / COVER" },
+    { topic: "PRINCIPLE", code: "DESIGN / PRINCIPLE" },
+    { topic: "CONTENT", code: "DESIGN / CONTENT" },
+    { topic: "CLOSING", code: "DESIGN / CLOSING" }
+  ];
+  const state = { slide: 0 };
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function buildChrome() {
+    const total = slides.length;
+    slides.forEach((shell, index) => {
+      const page = `${pad(index + 1)}/${pad(total)}`;
+      const header = shell.querySelector(".slide-header");
+      const footer = shell.querySelector(".slide-footer");
+      const info = meta[index] || { topic: "TEMPLATE", code: shell.dataset.code || "DESIGN" };
+      if (header) {
+        header.innerHTML = `
+          <div class="brand"><strong>AIXLAB</strong><span>XIXI STYLE TEMPLATE</span></div>
+          <div class="meta">
+            <span><b>01</b> THIN SYSTEM</span>
+            <span><b>02</b> SMALL BEAUTY</span>
+          </div>
+          <div class="topic">${info.topic}</div>
+          <div class="year">2030</div>
+          <div class="page-chip" aria-label="Slide ${page}">
+            <span class="page-arrow" aria-hidden="true"></span>
+            <span class="page-number">${page}</span>
+          </div>
+        `;
+      }
+      if (footer) {
+        footer.innerHTML = `
+          <span>${page}</span>
+          <div class="progress-dots" aria-label="Slide progress"></div>
+          <span>${info.code}</span>
+        `;
+        const dots = footer.querySelector(".progress-dots");
+        for (let dotIndex = 0; dotIndex < total; dotIndex += 1) {
+          const dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "progress-dot";
+          dot.setAttribute("aria-label", `Go to slide ${pad(dotIndex + 1)}`);
+          if (dotIndex <= index) dot.classList.add("is-filled");
+          dot.addEventListener("click", (event) => {
+            event.stopPropagation();
+            setSlide(dotIndex);
+          });
+          dots.appendChild(dot);
+        }
+      }
+    });
+  }
+
+  function scaleSlides() {
+    const scale = Math.min(window.innerWidth / SLIDE_W, window.innerHeight / SLIDE_H);
+    const width = Math.round(SLIDE_W * scale);
+    const height = Math.round(SLIDE_H * scale);
+    slides.forEach((shell) => {
+      const slide = shell.querySelector(".slide");
+      shell.style.width = `${width}px`;
+      shell.style.height = `${height}px`;
+      if (slide) slide.style.transform = `scale(${scale})`;
+    });
+  }
+
+  function setSlide(index) {
+    state.slide = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach((shell, slideIndex) => {
+      shell.classList.toggle("is-active", slideIndex === state.slide);
+    });
+  }
+
+  function next() {
+    setSlide(state.slide + 1);
+  }
+
+  function previous() {
+    setSlide(state.slide - 1);
+  }
+
+  function setupParticles() {
+    const canvases = Array.from(document.querySelectorAll(".particle-canvas"));
+    canvases.forEach((canvas) => {
+      const ctx = canvas.getContext("2d");
+      const host = canvas.parentElement;
+      const particles = [];
+      const total = 520;
+      for (let i = 0; i < total; i += 1) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = 175 + Math.random() * 180;
+        const band = Math.random() > 0.72 ? 1 : 0;
+        particles.push({
+          angle,
+          radius,
+          size: band ? 4 + Math.random() * 5 : 1.2 + Math.random() * 2.4,
+          speed: 0.00018 + Math.random() * 0.00034,
+          phase: Math.random() * Math.PI * 2,
+          band
+        });
+      }
+
+      function resize() {
+        const rect = host.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(rect.width * dpr);
+        canvas.height = Math.round(rect.height * dpr);
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function draw(time) {
+        const rect = host.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        particles.forEach((p) => {
+          const wobble = Math.sin(time * 0.0012 + p.phase) * 18;
+          const a = p.angle + time * p.speed;
+          const x = cx + Math.cos(a) * (p.radius + wobble);
+          const y = cy + Math.sin(a) * (p.radius * 0.96 + wobble);
+          const alpha = p.band ? 0.92 : 0.62;
+          ctx.fillStyle = p.band ? "rgba(183,255,0,0.9)" : "rgba(248,248,244," + alpha + ")";
+          ctx.beginPath();
+          ctx.arc(x, y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      window.addEventListener("resize", resize, { passive: true });
+      requestAnimationFrame(draw);
+    });
+  }
+
+  window.addEventListener("resize", scaleSlides, { passive: true });
+  window.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    if (["arrowright", "pagedown", " ", "enter"].includes(key)) {
+      event.preventDefault();
+      next();
+    }
+    if (["arrowleft", "pageup", "backspace"].includes(key)) {
+      event.preventDefault();
+      previous();
+    }
+    if (key === "home") setSlide(0);
+    if (key === "end") setSlide(slides.length - 1);
+  });
+  window.addEventListener("click", (event) => {
+    if (event.target.closest("button")) return;
+    if (event.clientX < window.innerWidth * 0.32) previous();
+    else next();
+  });
+
+  buildChrome();
+  scaleSlides();
+  setupParticles();
+  const initialSlideMatch = window.location.href.match(/[?&#]slide=(\d+)/);
+  const initialSlide = initialSlideMatch ? Number(initialSlideMatch[1]) : 1;
+  setSlide(initialSlide - 1);
+
+  window.AixlabPPTPlayer = {
+    next,
+    previous,
+    goTo: setSlide,
+    getState() {
+      return { slide: state.slide, total: slides.length, mode: "xixi-template-black" };
+    }
+  };
+})();
+    </script>
+  </body>
+</html>
