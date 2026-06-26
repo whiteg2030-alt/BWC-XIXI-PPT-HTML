@@ -2,6 +2,14 @@
 
 **BWC xixi ppt html** is a Codex skill for generating small-and-beautiful HTML presentations in the BaiWuchang visual style, then exporting an editable PowerPoint file from the generated HTML.
 
+## 中文介绍
+
+**BWC xixi ppt html** 是一套用于生成“细细风格”网页 PPT 的 Codex Skill。它内置黑色版和白色版两套模板，适合小而美产品介绍、作品集展示、研究札记、私享会分享和轻量发布稿。
+
+这套模板已经打包白无常原创字体 **白无常可可体**。该字体可免费商用，HTML 模板会直接加载内置字体；导出 PPTX 时，脚本也会自动安装字体，并让 PPT 里的可编辑文字统一使用白无常可可体。
+
+本项目支持两种输出：一种是可本地打开、支持键盘翻页的 HTML 演示文稿；另一种是由 HTML 生成的 PowerPoint 文件。PPTX 不是整页截图，标题、正文、页码和标签都保留为可编辑文字，方便二次修改。
+
 ![BWC XIXI PPT HTML preview](assets/preview/all-8-pages-summary.png)
 
 ## What It Makes
@@ -98,4 +106,3 @@ The deck style is:
 - BaiWuchangKeke typography across HTML and PPTX.
 
 Use it for product decks, personal talks, research notes, portfolio presentations, and refined small-scale launches.
-
